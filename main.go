@@ -37,8 +37,9 @@ func main() {
 				if event.Op&fsnotify.Write == fsnotify.Write {
 					log.Println("modified file:", event.Name)
 					if ValidateFile(path.Base(event.Name), validate) {
-						time.Sleep(5000 * time.Millisecond)
+						time.Sleep(1000 * time.Millisecond)
 						data, err := carscannertodb.ReadCsv(event.Name, delim)
+						fmt.Println(path.Split(event.Name))
 						if err != nil {
 							log.Println(err)
 							return
@@ -84,13 +85,13 @@ func InitDir(inputdir, validate string) error {
 	}
 
 	for _, f := range files {
-		if !ValidateFile(f.Name(), validate) {
-			log.Println("Wrong file:", f.Name())
-			continue
-		}
-		log.Println("Processing file:", f.Name())
+		// if !ValidateFile(f.Name(), validate) {
+		// 	log.Println("Wrong file:", f.Name())
+		// 	continue
+		// }
+		log.Println("Found file:", f.Name())
 		inputfile := path.Join(inputdir, f.Name())
-		fmt.Println(inputfile)
+		os.Chtimes(inputfile, time.Now().Local(), time.Now().Local())
 	}
 
 	return nil

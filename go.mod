@@ -14,3 +14,5 @@ require (
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
+
+replace github.com/rootofevil/carscannerlogs => c:/users/User/go/src/carscannerparser/carscannerlogs/
